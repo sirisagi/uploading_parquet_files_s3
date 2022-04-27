@@ -4,11 +4,10 @@ from io import BytesIO
 import os
 
 
-bucket_name = os.environ.get('BUCKET_NAME')
-file_prefix = os.environ.get('FILE_PREFIX')
-baseline_file = os.environ.get('BASELINE_FILE')
-
-def upload_files():
+def upload_files(event, context):
+    bucket_name = os.environ.get('BUCKET_NAME')
+    file_prefix = os.environ.get('FILE_PREFIX')
+    baseline_file = os.environ.get('BASELINE_FILE')
     bucket, filename = bucket_name, file_prefix
     s3 = boto3.resource('s3')
     obj = s3.Object(bucket, filename)
@@ -20,4 +19,4 @@ def upload_files():
             split[1].to_parquet(s3_url, compression='gzip')
 
 
-upload_files()
+upload_files(None, None)
