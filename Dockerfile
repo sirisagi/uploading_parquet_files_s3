@@ -7,6 +7,12 @@ COPY lambda_function.py ${LAMBDA_TASK_ROOT}
 # from your project folder.
 
 COPY requirements.txt  .
+
+ENV BASELINE_FILE s3://bucket/parquet-files-order_status/
+ENV BUCKET_NAME practice
+ENV FILE_PREFIX retail_db/orders/part-r
+
+
 RUN  pip3 install --upgrade pip
 RUN  pip3 install -r requirements.txt
 
